@@ -1,4 +1,10 @@
 <div class="directory">
+  <div class="stage" aria-hidden="true">
+    @for (contractor of slides; track contractor.id; let index = $index) {
+      <img [src]="contractor.cover" alt="" [class.is-on]="slide() === index" />
+    }
+  </div>
+
   <app-site-header />
 
   <section class="hero">
@@ -18,13 +24,7 @@
         <li>Salalah</li>
       </ul>
     </div>
-    <figure class="hero-photo">
-      <img
-        src="https://images.pexels.com/photos/36598845/pexels-photo-36598845.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=900"
-        alt="A fort gate in Muscat"
-      />
-      <figcaption>Fort gate · Muscat</figcaption>
-    </figure>
+    <p class="stage-caption">{{ current().company }} · {{ current().city }}</p>
   </section>
 
   <section class="toolbar">
