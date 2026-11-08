@@ -1,0 +1,14 @@
+<header class="mast">
+  <a class="brand" routerLink="/home">Bait Oman <small>مقاولو البناء · Oman</small></a>
+  <nav class="mast-nav">
+    <a routerLink="/home" routerLinkActive="is-active">Contractors</a>
+    <a routerLink="/shortlist" routerLinkActive="is-active">
+      Shortlist
+      <span class="count">{{ shortlist.count() }}</span>
+    </a>
+  </nav>
+  <div class="mast-user">
+    <span>{{ user()?.fullName }}</span>
+    <button type="button" class="ghost light" (click)="logout()">Log out</button>
+  </div>
+</header>

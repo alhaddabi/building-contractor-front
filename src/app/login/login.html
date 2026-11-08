@@ -1,0 +1,32 @@
+<app-auth-shell>
+  <section class="card">
+    <p class="sheet-no">Gate 01 · Muscat</p>
+    <p class="eyebrow">Ahlan</p>
+    <h2>Sign in to Bait Oman</h2>
+    <p class="hint">Use the username or the email you registered with.</p>
+
+    @if (registered) {
+      <p class="banner ok">Account created. Sign in with your username or email.</p>
+    }
+    @if (errorMessage()) {
+      <p class="banner error">{{ errorMessage() }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <label for="usernameOrEmail">Username or email</label>
+      <input id="usernameOrEmail" type="text" formControlName="usernameOrEmail" autocomplete="username" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" autocomplete="current-password" />
+
+      <button class="primary" type="submit" [disabled]="submitting()">
+        {{ submitting() ? 'Checking account...' : 'Sign in' }}
+      </button>
+    </form>
+
+    <p class="switch">
+      New here?
+      <a routerLink="/register">Create an account</a>
+    </p>
+  </section>
+</app-auth-shell>

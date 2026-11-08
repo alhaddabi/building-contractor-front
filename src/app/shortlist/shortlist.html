@@ -1,0 +1,53 @@
+<div class="directory">
+  <app-site-header />
+
+  <section class="hero slim">
+    <div>
+      <p class="eyebrow">Your selection · Oman</p>
+      <h1>The contractors you want to call.</h1>
+      <p class="hint wide">Phone numbers stay on this page so you can call the ones you keep.</p>
+    </div>
+  </section>
+
+  @if (shortlist.selected().length === 0) {
+    <section class="empty-panel">
+      <p>You have not selected a contractor yet.</p>
+      <a class="text-link" routerLink="/home">Browse the firms</a>
+    </section>
+  } @else {
+    <section class="compare">
+      @for (contractor of shortlist.selected(); track contractor.id) {
+        <article class="compare-card">
+          <img [src]="contractor.cover" [alt]="contractor.company" />
+          <div>
+            <p class="eyebrow">{{ contractor.trade }}</p>
+            <h2>{{ contractor.company }}</h2>
+            <p class="meta">{{ contractor.name }} · {{ contractor.city }}</p>
+            <dl>
+              <div>
+                <dt>Phone</dt>
+                <dd><a [href]="'tel:' + contractor.phone">{{ contractor.phone }}</a></dd>
+              </div>
+              <div>
+                <dt>Rating</dt>
+                <dd>{{ contractor.rating }} · {{ contractor.reviews }} notes</dd>
+              </div>
+              <div>
+                <dt>Experience</dt>
+                <dd>{{ contractor.years }} years</dd>
+              </div>
+              <div>
+                <dt>License</dt>
+                <dd>{{ contractor.license }}</dd>
+              </div>
+            </dl>
+            <div class="firm-actions">
+              <a class="text-link" [routerLink]="['/contractors', contractor.id]">Open full profile</a>
+              <button type="button" class="select" (click)="shortlist.toggle(contractor.id)">Remove</button>
+            </div>
+          </div>
+        </article>
+      }
+    </section>
+  }
+</div>

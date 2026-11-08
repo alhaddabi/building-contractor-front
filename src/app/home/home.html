@@ -1,0 +1,76 @@
+<div class="directory">
+  <app-site-header />
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Sultanate of Oman</p>
+      <h1>Find a building contractor from Muscat to Salalah.</h1>
+      <p class="hint wide">
+        Compare Omani firms, open their villas, forts, and majlis, and keep a shortlist of the ones
+        you want to call.
+      </p>
+      <ul class="places">
+        <li>Muscat</li>
+        <li>Mutrah</li>
+        <li>Nizwa</li>
+        <li>Bahla</li>
+        <li>Sohar</li>
+        <li>Salalah</li>
+      </ul>
+    </div>
+    <figure class="hero-photo">
+      <img
+        src="https://images.pexels.com/photos/36598845/pexels-photo-36598845.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=900"
+        alt="A fort gate in Muscat"
+      />
+      <figcaption>Fort gate · Muscat</figcaption>
+    </figure>
+  </section>
+
+  <section class="toolbar">
+    <div class="chips">
+      @for (item of trades; track item) {
+        <button type="button" class="chip" [class.is-on]="trade() === item" (click)="trade.set(item)">
+          {{ item }}
+        </button>
+      }
+    </div>
+    <input
+      class="search"
+      type="search"
+      placeholder="Search Muscat, Nizwa, Salalah..."
+      [value]="query()"
+      (input)="onSearch($event)"
+    />
+  </section>
+
+  @if (visible().length === 0) {
+    <p class="empty">No firm matches that search.</p>
+  } @else {
+    <section class="firm-grid">
+      @for (contractor of visible(); track contractor.id) {
+        <article class="firm">
+          <a class="cover" [routerLink]="['/contractors', contractor.id]">
+            <img [src]="contractor.cover" [alt]="contractor.company" />
+            <span>{{ contractor.city }}</span>
+          </a>
+          <div class="firm-body">
+            <p class="kicker">{{ contractor.trade }}</p>
+            <div class="firm-top">
+              <h2>{{ contractor.company }}</h2>
+              <strong class="score">{{ contractor.rating }}</strong>
+            </div>
+            <p class="meta">{{ contractor.name }} · {{ contractor.years }} years · {{ contractor.license }}</p>
+            <p class="blurb">{{ contractor.about }}</p>
+            <div class="firm-actions">
+              <a class="text-link" [routerLink]="['/contractors', contractor.id]">View profile</a>
+              <button type="button" class="select" (click)="shortlist.toggle(contractor.id)">
+                {{ shortlist.has(contractor.id) ? 'Shortlisted' : 'Shortlist' }}
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </section>
+  }
+</div>
